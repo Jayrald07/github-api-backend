@@ -1,12 +1,15 @@
-import express from "express";
+import express, { ErrorRequestHandler } from "express";
 import logger from "./utilities/logger";
-import dotenv from "dotenv";
+import initalizeEnvironment from "./utilities/environment";
+import router from "./routes/route.index";
+
+initalizeEnvironment();
 
 const server = express();
 server.use(express.json())
 
-dotenv.config();
+server.use(router);
 
-server.listen(8080,() => {
-    logger.info(`Server has been started. Listening on port ${8080}`)
+server.listen(process.env.PORT,() => {
+    logger.info(`Server has been started. Listening on port ${process.env.PORT}`)
 })
