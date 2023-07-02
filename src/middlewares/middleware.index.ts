@@ -5,6 +5,7 @@ import { Message } from "../utilities/message";
 import http2 from "http2";
 import { verifySession } from "../utilities/session";
 import { IJWTPayload, IRequest } from "../typedefs/typedef.index";
+import logger from "../utilities/logger";
 
 export const handleValidation = (req: Request, res: Response, next: NextFunction) => {
     const errors = validationResult(req).formatWith(details => details.msg);
@@ -20,7 +21,7 @@ export const handleAuthorization = (req: IRequest, res: Response, next: NextFunc
     try {
         const token = req.headers.authorization as string;
 
-        const payload = verifySession(token) as IJWTPayload;
+        const payload = verifySession(token.replace("Bearer ","")) as IJWTPayload;
 
         req.username = payload.username;
 

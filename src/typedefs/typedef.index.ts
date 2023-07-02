@@ -10,9 +10,18 @@ export interface IUserModel extends Model {
 }
 
 export interface IRequest extends Request {
-    username: string
+    username?: string
 }
 
 export interface IJWTPayload extends JwtPayload {
     username: string;
+}
+
+export interface IGithubUser {
+    name: string | null;
+    company: string | null;
+    login: string;
+    followers: number | null;
+    public_repos: number | null;
+    averageFollowers?: number | null;
 }

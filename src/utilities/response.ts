@@ -17,14 +17,12 @@ export class ResponseSuccess extends Response {
     }
 }
 
-export class ResponseError extends Response implements Error {
-    public statusCode: number;
+export class ResponseError extends Response {
     public errors: string[];
-    public name: string = '';
 
     constructor(message: string, code: number, errors: string[]) {
         super(message, code);
-        this.statusCode = code
+        this.code = code
         this.errors = errors
     }
 }
