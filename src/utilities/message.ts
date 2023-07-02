@@ -5,5 +5,5 @@ export enum Message {
     USERNAME_EMPTY = 'Username is empty',
     PASSWORD_EMPTY = 'Password is empty',
     USERNAME_PASSWORD_INCORRECT = 'Username or password is incorrect',
-    
+    UNAUTHORIZED = 'Unauthorized request'
 }

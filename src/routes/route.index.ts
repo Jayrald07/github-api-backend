@@ -1,6 +1,6 @@
 import express from "express";
 import { handleError, handleUserLogin, handleUserRegister } from "../controllers/controller.index";
-import { body } from "express-validator";
+import { body, header } from "express-validator";
 import { handleValidation } from "../middlewares/middleware.index";
 import { Message } from "../utilities/message";
 
@@ -19,7 +19,7 @@ router.post("/register",
 router.post("/login",
     [
         body("username").notEmpty().withMessage(Message.USERNAME_EMPTY),
-        body("password").notEmpty().withMessage(Message.PASSWORD_EMPTY),
+        body("password").notEmpty().withMessage(Message.PASSWORD_EMPTY)
     ],
     handleValidation,
     handleUserLogin)
