@@ -1,15 +1,21 @@
-import express, { ErrorRequestHandler } from "express";
+import express from "express";
 import logger from "./utilities/logger";
-import initalizeEnvironment from "./utilities/environment";
 import router from "./routes/route.index";
-
-initalizeEnvironment();
+import sequelize from "./utilities/database";
+import environment from "./utilities/environment";
 
 const server = express();
 server.use(express.json())
-
 server.use(router);
 
-server.listen(process.env.PORT,() => {
-    logger.info(`Server has been started. Listening on port ${process.env.PORT}`)
-})
+(async () => {
+    try {
+        await sequelize.authenticate();
+        await sequelize.sync();
+        server.listen(environment.PORT,() => {
+            logger.info(`Server has been started. Listening on port ${environment.PORT}`)
+        })
+    } catch (error: any) {
+        logger.error(error.message);
+    }
+})();

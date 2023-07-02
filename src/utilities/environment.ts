@@ -1,9 +1,9 @@
 import dotenv from "dotenv"
+dotenv.config({})
 
-const initalizeEnvironment = () => {
-    if (process.env.NODE_DEV != 'production') {
-        dotenv.config({})
-    }
+const environment = {
+    PORT: process.env.PORT,
+    DB_URI: process.env.DB_URI
 }
 
-export default initalizeEnvironment;
+export default environment
