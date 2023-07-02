@@ -1,6 +1,6 @@
 import { NextFunction, Response, ErrorRequestHandler, Request } from "express";
 import { User } from "../models/model.index";
-import { ResponseError, ResponseSuccess } from "../utilities/response";
+import { ResponseError, ResponseSuccess } from "../domains/domain.index";
 import http2 from "http2";
 import { Message } from "../utilities/message";
 import logger, { requestLogger } from "../utilities/logger";

@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response} from "express";
 import { validationResult } from "express-validator";
-import { ResponseError } from "../utilities/response";
+import { ResponseError } from "../domains/domain.index";
 import { Message } from "../utilities/message";
 import http2 from "http2";
 import { verifySession } from "../utilities/session";
