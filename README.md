@@ -1,4 +1,5 @@
 # Github API
+This API acts like a proxy for the real Github API which allows the registered user to request for Github user's details.
 
 ## How to use the API
 
