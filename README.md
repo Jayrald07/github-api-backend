@@ -32,6 +32,7 @@ The initial data is a JSON with empty value for each property, namely ```usernam
 ![Create account](instruction-materials/register.png)
 
 Input a data in ```username```, ```password```, and ```passwordConfirmation```. Then, click **Send**. 
+
 **Note:** Make sure ```password``` and ```passwordConfirmation``` are the same. Otherwise, it will return an error.
 
 ![Registered Account](instruction-materials/createdAccount.png)
@@ -43,6 +44,7 @@ The initial data is a JSON with empty value for each property, namely ```usernam
 ![Login](instruction-materials/login.png)
 
 Input a data in ```username``` and ```password```. Then, click **Send**. Copy the token returned by the API, it will be used for requesting for github users' details.
+
 **Note:** It will return ```401``` or ```Unauthorized``` if incorrect
 
 ![Valid User](instruction-materials/validUser.png)
@@ -55,6 +57,7 @@ On the left-side of the request, select **Bearer Token** for the authorization t
 
 After setting the authorization token, click the **Body**.
 The initial data is a JSON with ```usernames``` property containing two (2) github usernames as array elements. You can add more github usernames if you want. After that, click **Send**, and it will return the ```name```, ```login```, ```company```, ```public_repos```, ```followers```, and ```averageFollowers``` of each github user.
+
 **Note:** The API can only accommodate 10 usernames.
 
 ![Github Users Details](instruction-materials/githubUsers.png)
