@@ -84,7 +84,8 @@ $ Output: 2
 - Express JS
 
 ### Infrastructure
-- API Gateway
 - Elastic Container Service
-- Docker
+- API Gateway
 - Amazon RDS
+- Amazon CloudWatch
+- Docker
