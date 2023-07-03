@@ -67,6 +67,11 @@ The initial data is a JSON with ```usernames``` property containing two (2) gith
 
 <hr/>
 
+## CloudWatch Sample Logs
+![Alt text](instruction-materials/cloudwatch.png)
+
+<hr/>
+
 ## Hamming Distance
 
 The script name is ```hammingDistance.js``` which is also included in the repository.
