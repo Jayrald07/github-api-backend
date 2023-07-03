@@ -23,7 +23,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "NODE_ENV=DEV ts-node-dev src/index"
+    "dev": "NODE_ENV=DEV ts-node-dev src/index",
+    "build": "rm -rf dist && tsc",
+    "start": "node dist/index.js"
   },
   "repository": {
     "type": "git",
