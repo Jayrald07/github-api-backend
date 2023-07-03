@@ -1,5 +1,5 @@
 import { DataTypes } from "sequelize"
-import sequelize from "../utilities/database"
+import { sequelize } from "../utilities/database"
 import { createSession } from "../utilities/session"
 import { IUserModel } from "../typedefs/typedef.index"
 

@@ -1,19 +1,17 @@
-import { NextFunction, Response, ErrorRequestHandler, Request } from "express";
+import { NextFunction, Response, ErrorRequestHandler } from "express";
 import { User } from "../models/model.index";
 import { ResponseError, ResponseSuccess } from "../domains/domain.index";
 import http2 from "http2";
 import { Message } from "../utilities/message";
-import logger, { requestLogger } from "../utilities/logger";
 import { comparePassword, hashPassword } from "../utilities/hasher";
 import { IRequest, IUserModel } from "../typedefs/typedef.index";
-import { getGithubUser } from "../service/service.index";
+import { getGithubUserDetails } from "../service/service.index";
 import { sortString } from "../utilities/sorter";
-import { GithubUserDetails } from "../domains/domain.index";
 
 
-export const handleUserRegister = async (req: IRequest, res: Response, next: NextFunction) => {
+export const handleUserRegister = async (request: IRequest, response: Response, next: NextFunction) => {
     try {
-        const { username, password } = req.body;
+        const { username, password } = request.body;
 
         const user = await User.findOne<IUserModel>({ where: { username } });
 
@@ -26,19 +24,17 @@ export const handleUserRegister = async (req: IRequest, res: Response, next: Nex
 
         await newUser.save()
 
-        const response = new ResponseSuccess('User has been created', http2.constants.HTTP_STATUS_CREATED, {});
+        const responseDetails = new ResponseSuccess('User has been created', http2.constants.HTTP_STATUS_CREATED, {});
 
-        res.status(http2.constants.HTTP_STATUS_CREATED).json(response)
-
-        requestLogger(req, {message: 'User has been created', code: http2.constants.HTTP_STATUS_CREATED });
+        response.status(http2.constants.HTTP_STATUS_CREATED).json(responseDetails)
     } catch(error) {
         next(error);
     }
 }
 
-export const handleUserLogin = async (req: IRequest, res: Response, next: NextFunction) => {
+export const handleUserLogin = async (request: IRequest, response: Response, next: NextFunction) => {
     try {
-        const { username, password } = req.body;
+        const { username, password } = request.body;
 
         const user = await User.findOne<IUserModel>({ where: { username } });
 
@@ -52,51 +48,37 @@ export const handleUserLogin = async (req: IRequest, res: Response, next: NextFu
             throw new ResponseError(Message.REQUEST_ERROR, http2.constants.HTTP_STATUS_UNAUTHORIZED, [Message.USERNAME_PASSWORD_INCORRECT]);
         } 
 
-        const response = new ResponseSuccess('User has been logged in', http2.constants.HTTP_STATUS_OK, { token: user.generateToken() });
+        const responseDetails = new ResponseSuccess('User has been logged in', http2.constants.HTTP_STATUS_OK, { token: user.generateToken() });
 
-        res.status(http2.constants.HTTP_STATUS_OK).json(response)
-
-        requestLogger(req, { message: 'User has been logged in', code: http2.constants.HTTP_STATUS_OK });
+        response.status(http2.constants.HTTP_STATUS_OK).json(responseDetails)
     } catch(error) {
         next(error);
     }
 }
 
 
-export const handleGithubUserDetails = async (req: IRequest, res: Response, next: NextFunction) => {
+export const handleGithubUserDetails = async (request: IRequest, response: Response, next: NextFunction) => {
     try {
-        const usernames: string[] = req.body.usernames;
+        const usernames: string[] = request.body.usernames;
 
-        const users = await Promise.all(usernames.map(async (username: string) => {
-            try {
-                const details = await getGithubUser(username);
-
-                return new GithubUserDetails(details) 
-            } catch(error) {
-                return GithubUserDetails.empty(username);
-            }
-        }))
+        const users = await getGithubUserDetails(usernames);
 
         const sorted = sortString(users);
         
-        const response = new ResponseSuccess('Github user details', http2.constants.HTTP_STATUS_OK, { users: sorted });
+        const responseDetails = new ResponseSuccess('Github user details', http2.constants.HTTP_STATUS_OK, { users: sorted });
 
-        res.status(http2.constants.HTTP_STATUS_OK).json(response)
-
-        requestLogger(req, { message: 'Github user details', code: http2.constants.HTTP_STATUS_OK});
+        response.status(http2.constants.HTTP_STATUS_OK).json(responseDetails)
     } catch(error) {
         next(error);
     }
 }
 
-export const handleError: ErrorRequestHandler = (error, req: IRequest, res, next) => {
+export const handleError: ErrorRequestHandler = (error, request: IRequest, response, next) => {
     const { code, message, errors } = error;
 
-    res.status(code || 500).json({
+    response.status(code || 500).json({
         message,
         code: code || 500,
         errors: errors || []
     })
-
-    requestLogger(req, { code: code || 500, errors: errors || [] })
 }

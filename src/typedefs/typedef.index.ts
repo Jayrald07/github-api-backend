@@ -10,7 +10,9 @@ export interface IUserModel extends Model {
 }
 
 export interface IRequest extends Request {
-    username?: string
+    username?: string;
+    logId?: string;
+    test?: number
 }
 
 export interface IJWTPayload extends JwtPayload {

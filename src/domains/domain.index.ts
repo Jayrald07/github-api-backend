@@ -38,14 +38,20 @@ export class GithubUserDetails {
     public averageFollowers: number | null = null;
 
     constructor(details: IGithubUser) {
-        this.name = details.name;
-        this.login = details.login;
-        this.company = details.company;
-        this.public_repos = details.public_repos;
-        this.followers = details.followers;
+        const { name, login, company, public_repos, followers } = details;
 
-        if (details.public_repos !== null && details.followers !== null) {
-            this.averageFollowers = details.followers / details.public_repos;
+        this.name = name;
+        this.login = login;
+        this.company = company;
+        this.public_repos = public_repos;
+        this.followers = followers;
+
+        if (public_repos !== null && followers !== null) {
+            if (!public_repos) {
+                this.averageFollowers = 0;
+            } else {
+                this.averageFollowers = parseFloat((followers / public_repos).toFixed(2));
+            }
         }
     }
 
@@ -60,3 +66,4 @@ export class GithubUserDetails {
         })
     }
 }
+
