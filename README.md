@@ -1,6 +1,20 @@
 # Github API
 This API acts like a proxy for the real Github API which allows the registered user to request for Github user's details.
 
+
+### Technology used for API:
+- Node.js
+- Redis
+- MySQL
+- Express JS
+
+### Infrastructure
+- Elastic Container Service
+- API Gateway
+- Amazon RDS
+- Amazon CloudWatch
+- Docker
+
 ## How to use the API
 
 **URI:** https://f9q8dpz4ah.execute-api.us-east-1.amazonaws.com/
@@ -86,15 +100,3 @@ $ Output: 2
 ```
 <hr/>
 
-### Technology used for API:
-- Node.js
-- Redis
-- MySQL
-- Express JS
-
-### Infrastructure
-- Elastic Container Service
-- API Gateway
-- Amazon RDS
-- Amazon CloudWatch
-- Docker
