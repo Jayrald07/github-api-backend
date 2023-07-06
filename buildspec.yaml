@@ -1,0 +1,22 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      docker: 19
+    commands:
+      - echo "Installing docker version 19"
+  pre_build:
+    commands:
+      - echo "Fetching data"
+      - "aws ecr get-login-password --region $REGION | docker login --username AWS --password-stdin $ACCOUNT_NUMBER.dkr.ecr.$REGION.amazonaws.com"
+  build:
+    commands:
+      - echo "Building docker image"
+      - docker build -t $REPOSITORY:$TAG .
+      - echo "Tagging build docker image"
+      - docker tag $REPOSITORY:$TAG $ACCOUNT_NUMBER.dkr.ecr.$REGION.amazonaws.com/$REPOSITORY:$TAG
+  post_build:
+    commands:
+      - echo "Pushing docker image to ECR"
+      - docker push $ACCOUNT_NUMBER.dkr.ecr.$REGION.amazonaws.com/$REPOSITORY:$TAG

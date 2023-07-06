@@ -3,9 +3,12 @@ This API acts like a proxy for the real Github API which allows the registered u
 
 ## How to use the API
 
-**URI:** https://f9q8dpz4ah.execute-api.us-east-1.amazonaws.com/
+<!-- **URI:** https://f9q8dpz4ah.execute-api.us-east-1.amazonaws.com/ -->
 
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/10019143-4908692e-cc3f-481d-913a-9bd6919598cd?action=collection%2Ffork&source=rip_markdown&collection-url=entityId%3D10019143-4908692e-cc3f-481d-913a-9bd6919598cd%26entityType%3Dcollection%26workspaceId%3Dae7aea33-9cc2-4dcf-8305-598bb3e5436a)
+```
+Note: The URI variable in Postman API Collection is not working as of now. I stopped the server.
+```
 
 ```
 In order to run the API, we have to use Postman. 
